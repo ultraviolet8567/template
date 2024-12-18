@@ -1,0 +1,44 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [1]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [4]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/AdvantageKit/RealOutputs/Arm/Mechanism": "Mechanism2d",
+      "/AdvantageKit/RealOutputs/ArmMechanism": "Mechanism2d",
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Main/Number of Notes": "String Chooser",
+      "/Shuffleboard/Main/Other Variables": "String Chooser",
+      "/Shuffleboard/Main/Other variables": "String Chooser",
+      "/Shuffleboard/Main/Side of Field": "String Chooser",
+      "/SmartDashboard/Mechanism": "Mechanism2d"
+    }
+  },
+  "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
+    "Retained Values": {
+      "open": false
+    },
+    "transitory": {
+      "Shuffleboard": {
+        "open": true
+      }
+    }
+  },
+  "NetworkTables Info": {
+    "visible": true
+  }
+}
