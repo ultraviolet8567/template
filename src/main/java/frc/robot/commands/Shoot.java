@@ -6,18 +6,18 @@ import frc.robot.FieldConstants;
 import frc.robot.subsystems.Odometry;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.arm.Arm;
+import frc.robot.subsystems.flywheel.Flywheel;
 import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.shooter.Shooter;
 import org.littletonrobotics.junction.Logger;
 
 public class Shoot extends Command {
-	private Shooter shooter;
+	private Flywheel shooter;
 	private Intake intake;
 	private Odometry odometry;
 	private Swerve swerve;
 	private Arm arm;
 
-	public Shoot(Shooter shooter, Intake intake, Swerve swerve, Arm arm, Odometry odometry) {
+	public Shoot(Flywheel shooter, Intake intake, Swerve swerve, Arm arm, Odometry odometry) {
 		this.shooter = shooter;
 		this.intake = intake;
 		this.odometry = odometry;
@@ -29,7 +29,7 @@ public class Shoot extends Command {
 
 	@Override
 	public void initialize() {
-		shooter.shoot();
+		shooter.run();
 	}
 
 	@Override

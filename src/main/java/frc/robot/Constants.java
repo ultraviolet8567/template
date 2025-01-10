@@ -50,8 +50,7 @@ public final class Constants {
 		public static final int kLeftClimberPort = 5;
 		public static final int kRightClimberPort = 6;
 
-		public static final int kShooterTopPort = 7;
-		public static final int kShooterBottomPort = 8;
+		public static final int kFlywheelPort = 7;
 
 		public static final int kArm1Port = 9;
 		public static final int kArm2Port = 10;
@@ -220,6 +219,7 @@ public final class Constants {
 
 		public static final double kShooterReduction = 1.0;
 
+		public static final double kLowVelocity = 800;
 		public static final double kVelocityThreshold = 0.8;
 		public static final double kVelocityThresholdLow = 0.6;
 
@@ -263,12 +263,8 @@ public final class Constants {
 	}
 
 	public static final class GainsConstants {
-		public static final Gains shooterTopGains = switch (currentRobot) {
+		public static final Gains flywheelGains = switch (currentRobot) {
 			case REALBOT -> new Gains(0.00000065361, 0.0, 0.0, 0.0091151, 0.0018015, 0.0, 0.0);
-			case SIMBOT -> new Gains(1.0, 0.0, 0.0, 0.009078, 0.00103, 0.0, 0.0);
-		};
-		public static final Gains shooterBottomGains = switch (currentRobot) {
-			case REALBOT -> new Gains(0.000001136, 0.0, 0.0, 0.06427, 0.0018144, 0.0, 0.0);
 			case SIMBOT -> new Gains(1.0, 0.0, 0.0, 0.009078, 0.00103, 0.0, 0.0);
 		};
 

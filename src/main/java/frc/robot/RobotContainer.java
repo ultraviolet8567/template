@@ -19,8 +19,8 @@ import frc.robot.commands.autos.*;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.arm.*;
 import frc.robot.subsystems.arm.Arm.ArmMode;
+import frc.robot.subsystems.flywheel.*;
 import frc.robot.subsystems.intake.*;
-import frc.robot.subsystems.shooter.*;
 
 /**
  * This class is where the bulk of the robot should be declared. The structure
@@ -33,7 +33,7 @@ public class RobotContainer {
 	// private final Climber climber;
 	private final Intake intake;
 	private final Odometry odometry;
-	private final Shooter shooter;
+	private final Flywheel flywheel;
 	private final Swerve swerve;
 	private final AutoChooser autoChooser;
 
@@ -60,13 +60,13 @@ public class RobotContainer {
 				// climber = new Climber(new ClimberIOSim()); // Use simulated climber until
 				// electronics installed
 				intake = new Intake(new IntakeIOSparkMax());
-				shooter = new Shooter(new ShooterIOSparkMax(), arm);
+				flywheel = new Flywheel(new FlywheelIOSparkMax());
 			}
 			case SIM -> {
 				arm = new Arm(new ArmIOSim());
 				// climber = new Climber(new ClimberIOSim());
 				intake = new Intake(new IntakeIOSim());
-				shooter = new Shooter(new ShooterIOSim(), arm);
+				flywheel = new Flywheel(new FlywheelIOSim());
 			}
 			default -> {
 				arm = new Arm(new ArmIO() {
@@ -75,8 +75,8 @@ public class RobotContainer {
 				// });
 				intake = new Intake(new IntakeIO() {
 				});
-				shooter = new Shooter(new ShooterIO() {
-				}, arm);
+				flywheel = new Flywheel(new FlywheelIO() {
+				});
 			}
 		}
 
@@ -94,9 +94,9 @@ public class RobotContainer {
 				}, swerve);
 
 		// Register PathPlanner named commands
-		NamedCommands.registerCommand("AutoShoot", new AutoShoot(shooter, intake));
-		NamedCommands.registerCommand("RampUp", new InstantCommand(() -> shooter.shoot()));
-		NamedCommands.registerCommand("FirstShot", new InstantCommand(() -> shooter.shoot(0.67)));
+		NamedCommands.registerCommand("AutoShoot", new AutoShoot(flywheel, intake));
+		NamedCommands.registerCommand("RampUp", new InstantCommand(() -> flywheel.run()));
+		NamedCommands.registerCommand("FirstShot", new InstantCommand(() -> flywheel.run(0.67)));
 		NamedCommands.registerCommand("Pickup", new AutoIntake(intake));
 		NamedCommands.registerCommand("PickupTimed", new AutoIntakeTimed(intake));
 		NamedCommands.registerCommand("AutoRetract", new AutoRetract(intake));
@@ -127,8 +127,8 @@ public class RobotContainer {
 
 	public void configureBindings() {
 		// Button bindings
-		driverController.leftBumper().whileTrue(new InstantCommand(() -> shooter.shoot(0.75)))
-				.onFalse(new InstantCommand(() -> shooter.stop()));
+		driverController.leftBumper().whileTrue(new InstantCommand(() -> flywheel.run(0.75)))
+				.onFalse(new InstantCommand(() -> flywheel.stop()));
 
 		// driverController.y().whileTrue(new WheelRadiusCharacterization(swerve,
 		// odometry,
@@ -139,7 +139,7 @@ public class RobotContainer {
 
 		operatorController.leftBumper().whileTrue(new Pickup(intake));
 		operatorController.leftTrigger(0.5).whileTrue(new Drop(intake));
-		operatorController.rightTrigger().whileTrue(new Shoot(shooter, intake, swerve, arm, odometry));
+		operatorController.rightTrigger().whileTrue(new Shoot(flywheel, intake, swerve, arm, odometry));
 
 		operatorController.back().onTrue(new InstantCommand(() -> arm.setArmMode(ArmMode.SOURCE)));
 		operatorController.start().onTrue(new InstantCommand(() -> arm.setArmMode(ArmMode.SPEAKERSTAGE)));
